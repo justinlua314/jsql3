@@ -20,8 +20,6 @@ class DBParser:
             if table != "sqlite_sequence":
                 tables.append(table)
 
-        print(len(tables))
-
         return tables
 
 
