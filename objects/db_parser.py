@@ -20,6 +20,8 @@ class DBParser:
             if table != "sqlite_sequence":
                 tables.append(table)
 
+        print(len(tables))
+
         return tables
 
 
@@ -33,6 +35,19 @@ class DBParser:
         if type(value) == int:
             return str(value)
 
+        if type(value) == float:
+            return str(value)
+
+        if type(value) == bytes:
+            if len(value) > 32:
+                return f"<BLOB {len(value)} bytes>"
+
+            try:
+                return value.decode("utf-8")
+            except:
+                return f"<BLOB {len(value)} bytes>"
+
+        # TODO: Add better error handling
         print("ERROR: Could not parse value type", type(value))
         exit()
 
